@@ -12,18 +12,20 @@ def deal_card():
     return hands
     
 
-def calculate_score(user_hand, dealer_hand):
-    user_score = sum(user_hand)
-    dealer_score = sum(dealer_hand)
+def calculate_score(hands):
+    user_score = sum(hands[0])
+    dealer_score = sum(hands[1])
     if user_score == 21:
         print(f"You have a Blackjack! You win! 🃏")
     elif dealer_score == 21:
         print("The dealer has a blackjack. You lose ☹️")
     
+    
 
 def run_game():
-    deal_card()
-    calculate_score()
+    hands = deal_card()
+    print(hands)
+    calculate_score(hands)
 
 run_game()
 
