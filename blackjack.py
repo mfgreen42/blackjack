@@ -19,6 +19,7 @@ Dealer hand: [{dealer_hand[0]}, ?] """)
 def calculate_score(hands):
     user_score = sum(hands[0])
     dealer_score = sum(hands[1])
+    global end_game 
     if user_score == 21:
         print(f"You have a Blackjack! You win! 🃏")
         end_game = True
@@ -30,11 +31,12 @@ def calculate_score(hands):
     
     
 def check_who_wins(scores):
-    if scores[0] > 21 and scores[1] < 21:
+    global end_game 
+    if scores[0] > 21:
         print(f"Bust! Your score is {scores[0]},You lose")
         end_game = True
         
-    elif scores[1] > 21 and scores[0] < 21:
+    elif scores[1] > 21:
         print(f"You win! Dealer score was {scores[1]} ")
         end_game = True
         
@@ -42,18 +44,17 @@ def check_who_wins(scores):
 def draw_a_card(scores, hands):
     draw = input(f"Your score is {scores[0]}, Would you like another card? y or n: ")
     another_card = int(random.choice(cards))
+    another_card_two = int(random.choice(cards))
     if draw == "y":
         hands[0].append(another_card)
+        if scores[1] <= 17:
+            hands[1].append(another_card_two)
         calculate_score(hands)
-    elif scores[1] < 17: 
-        hands[1].append(another_card)
-        calculate_score(hands)
-
         
-    
-    
-    
-
+    elif draw == "n":
+        if scores[1] < 17:
+            hands[1].append(another_card)
+            calculate_score(hands)
     
 
 def run_game():
